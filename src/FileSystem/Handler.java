@@ -32,8 +32,10 @@ public class Handler implements Runnable {
      * @param socket
      * 
      */
-    public Handler(Socket socket) {
+    public Handler(Socket socket,String path) {
         this.socket = socket;
+        this.rootPath=path+"\\"; 	
+    	this.tempPath=this.rootPath;
     }
 
     /**
@@ -60,8 +62,9 @@ public class Handler implements Runnable {
     /**
      * 实现Runnable接口
      * 多线程
+     * @return 
      */
-    public void run() {
+    public synchronized void run() {
         try {
         	//initialize stream
             initStream();

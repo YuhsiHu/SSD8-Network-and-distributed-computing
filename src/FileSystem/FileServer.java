@@ -23,7 +23,7 @@ import FileSystem.Handler;
  * @author Huyuxi
  * @date 2018-11-16
  */
-public class FileServer {
+public class FileServer extends Thread{
 	private static final String HOST = "127.0.0.1";// 服务器IP
 	private static final int UDP_PORT = 2020;// UDP服务器端口
 	private static final int TCP_PORT = 2021;// TCP服务器端口
@@ -54,10 +54,9 @@ public class FileServer {
 		while (true) {
 			try {
 				// 等待并取出用户连接，并创建套接字
-				socket = serverSocket.accept();
-				Handler handler = new Handler(socket);
-				System.out.println(path);
-				handler.setRootPath(path);
+				socket = serverSocket.accept();				
+				Handler handler = new Handler(socket,path);
+				System.out.println(path);		
 				executorService.execute(handler);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -71,6 +70,7 @@ public class FileServer {
 	 * @param args
 	 * @throws SocketException
 	 * @throws IOException
+	 * D:
 	 */
 	public static void main(String[] args) throws SocketException, IOException {
 		// 服务器启动时需传递目录参数，若没有参数则返回

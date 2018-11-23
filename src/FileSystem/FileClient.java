@@ -40,16 +40,21 @@ public class FileClient {
 
 	public void send() {
         try {
+        	//输入流
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
                     socket.getOutputStream()));
+            //输出流
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
+            //装饰流
             PrintWriter pw = new PrintWriter(bw, true);
 
             System.out.println(br.readLine());
 
             Scanner in = new Scanner(System.in);
             String cmd = null;
+            
+            //input on console
             while ((cmd = in.next()) != null) {
                 pw.println(cmd);
                 System.out.println("You input:"+cmd);
@@ -59,6 +64,7 @@ public class FileClient {
                     if (cmd.equals("get")) {
                         long fileLength = Long.parseLong(br.readLine());
                         System.out.println("" + fileLength);
+                        //if file exist
                         if (fileLength != -1) {
                             System.out.println("Begin to download file:" + dir);
                             System.out.println("Download successfully!");

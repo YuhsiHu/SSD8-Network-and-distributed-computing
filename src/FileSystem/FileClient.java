@@ -24,8 +24,8 @@ import java.util.Scanner;
  */
 public class FileClient {
 	private static final String HOST = "127.0.0.1";// 服务器IP
-	private static final int UDP_PORT = 2020;// UDP服务器端口
-	private static final int TCP_PORT = 2021;// TCP服务器端口
+	private static final int UDP_PORT = 2020;// UDP port
+	private static final int TCP_PORT = 2021;// TCP port
 	private static final int SENDSIZE = 1024;
 	DatagramSocket dgsocket;
 	Socket socket = new Socket();
@@ -40,13 +40,13 @@ public class FileClient {
 
 	public void send() {
         try {
-        	//输入流
+        	//input stream
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
                     socket.getOutputStream()));
-            //输出流
+            //output stream
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
-            //装饰流
+            
             PrintWriter pw = new PrintWriter(bw, true);
 
             System.out.println(br.readLine());

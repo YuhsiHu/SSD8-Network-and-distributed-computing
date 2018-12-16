@@ -25,13 +25,13 @@ import FileSystem.Handler;
  */
 public class FileServer extends Thread{
 	private static final String HOST = "127.0.0.1";// 服务器IP
-	private static final int UDP_PORT = 2020;// UDP服务器端口
-	private static final int TCP_PORT = 2021;// TCP服务器端口
+	private static final int UDP_PORT = 2020;// UDP port
+	private static final int TCP_PORT = 2021;// TCP port
 	static File root;
 	ServerSocket serverSocket;// TCP
 	DatagramSocket socket;// UDP
 	ExecutorService executorService;
-	final int POOLSIZE = 4;// 线程池容量
+	final int POOLSIZE = 4;// thread pool size
 	private String path;
 
 	/**
@@ -39,10 +39,10 @@ public class FileServer extends Thread{
 	 * @throws IOException
 	 */
 	public FileServer() throws IOException {
-		// 创建服务器端套接字
+		// create socket
 		serverSocket = new ServerSocket(TCP_PORT, 2);
 		executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * POOLSIZE);
-		System.out.println("服务器启动。");
+		System.out.println("Server started.");
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class FileServer extends Thread{
 	 * D:
 	 */
 	public static void main(String[] args) throws SocketException, IOException {
-		// 服务器启动时需传递目录参数，若没有参数则返回
+		// pass root directory by String[] args
 		if (args.length != 1) {
 			System.err.println("Please input your root path!");
 			return;
@@ -93,7 +93,7 @@ public class FileServer extends Thread{
 		}
 
 		System.out.println("Root : " + root.getAbsolutePath());
-		// 启动服务器
+		// start server
 		new FileServer().service(args[0]);
 	}
 }

@@ -21,8 +21,8 @@ public class Handler implements Runnable {
     private String rootPath=null;
     private static String tempPath=null;
     private static final String HOST = "127.0.0.1";//服务器IP
-    private static final int UDP_PORT = 2020;//UDP服务器端口
-    private static final int TCP_PORT = 2021;//TCP服务器端口
+    private static final int UDP_PORT = 2020;//UDP port
+    private static final int TCP_PORT = 2021;//TCP port
     private static final int SENDSIZE = 1024;
     DatagramSocket dgsocket;//UDP
     SocketAddress socketAddres;
@@ -30,6 +30,7 @@ public class Handler implements Runnable {
     /**
      * 
      * @param socket
+     * @param path
      * 
      */
     public Handler(Socket socket,String path) {
@@ -40,7 +41,7 @@ public class Handler implements Runnable {
 
     /**
      * initialize root path
-     * @param path
+     * @param path set root path
      */
     public void setRootPath(String path) {
     	this.rootPath=path+"\\"; 	
@@ -48,27 +49,27 @@ public class Handler implements Runnable {
     }
     /**
      * initialize the stream
-     * @throws IOException
+     * @throws IOException 
      */
     public void initStream() throws IOException {
-    	// 输入流，读取信息
+    	// input stream
         br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        // 输出流，写信息
+        // output stream
         bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-         // 装饰输出流，true,每写一行就刷新输出缓冲区，不用flush
+         
         pw = new PrintWriter(bw, true);
     }
 
     /**
-     * 实现Runnable接口
-     * 多线程
-     * @return 
+     * overwrite Runnable
+     * 
+     * @return nothing,just handle the interaction
      */
     public synchronized void run() {
         try {
         	//initialize stream
             initStream();
-            //初始化消息
+            //initialize message
             String ipport = "客户端IP地址:" + socket.getInetAddress() + "客户端端口号:" + socket.getPort() + "> 连接成功";
             pw.println(ipport);
             String info = null;
@@ -153,7 +154,7 @@ public class Handler implements Runnable {
             dp.setData(sendInfo);
             dgsocket.send(dp);
             sendInfo = new byte[SENDSIZE];
-            //确保发送顺序
+            //sleep 1ms
             TimeUnit.MICROSECONDS.sleep(1);
         }
         bfdIS.close();
@@ -181,7 +182,7 @@ public class Handler implements Runnable {
 
     /**
      * 
-     * ls 服务器返回当前目录文件列表（<file/dir>	 name size） 
+     * ls <file/dir>	 name size
      * @param currentPath
      * 
      */
@@ -206,8 +207,8 @@ public class Handler implements Runnable {
     }
 
     /**
-     * 文件名后加空格对齐
-     * @param count
+     * control the output style
+     * @param count count the space
      * @return space str
      */
     public static String addSpace(int count) {
@@ -219,7 +220,7 @@ public class Handler implements Runnable {
     }
 
     /**
-     * cd <dir> 进入指定目录（需判断目录是否存在，并给出提示）
+     * cd <dir> 
      * @param dir
      */
     private void cd2dir(String dir) {
@@ -228,7 +229,7 @@ public class Handler implements Runnable {
         File rootFile = new File(tempPath);
         System.out.println(tempPath);
         File[] fileList = rootFile.listFiles();
-        //扫描当前路径下是否存在这个目录
+        //if dir exist
         for (File file : fileList) {
             if (file.getName().equals(dir)) {
                 isExist = true;
@@ -252,7 +253,7 @@ public class Handler implements Runnable {
 
     /**
      * 
-     * @param fileName
+     * @param fileName the name of file to download
      * @return isFileExist
      */
     public static boolean isFileExist(String fileName) {

@@ -159,3 +159,35 @@ Exam 1:HTTP Proxy Server
 * 根目录：默认为D:\ProxyServer  
 * 端口：默认为8000  
 * 主机：默认本机   
+
+Exam 2：RMI分布式消息系统
+--------------------------------
+  使用RMI建立一个分布式消息系统。该系统需实现用户注册、查看所有已注册用户信息、给其他用户留言，以及查看其它用户给自己的留言。系统包含以下方法：  
+  `register(username, password)`    
+  该方法用于新用户的注册。如果用户名已存在，则提示用户选择另一个用户名。  
+  `showusers()`    
+  该方法用于显示所有注册的用户。  
+  `checkmessages(username, password)`    
+  该方法打印用户的所有留言，留言信息包括：留言者、日期和时间、留言内容。注意，如果用户名和密码不对，应有相应的提示信息；如果该用户没有任何留言，也应该有提示。  
+  leavemessage(username, password, receiver_name, message_text)  
+  该方法用于给其他用户留言，首先需校验用户名和密码是否正确，若不正确，请给出相应的提示，留言不成功；接着需校验接收者用户名是否存在，若不存在，请给出相应的提示，留言不成功；若以上校验均正确，则系统记录留言的日期和时间、留言内容等信息。  
+
+  1.所有功能中，用户注册、登录、查看消息都是传递的User或MessageContext的Vector。
+  然而查看所有已经注册的用户功能，我认为作为一个客户端不应该获得所有其他用户的全部信息，因此返回不是User的列表，仅仅返回用户姓名。  
+
+  2.文件结构如下：   
+  |    
+  |  
+  |-- bean  
+  |   -`MessageContent.java` 定义消息类  
+  |   -`User.java` 定义用户类  
+  |    
+  |-- client  
+  |   -`MyClient.java` 客户端实现  
+  |  
+  |-- iface  
+  |   -`MyInterface.java` 服务器接口  
+  |  
+  |-- server  
+  |   -`MyImpl.java` 服务器接口实现  
+  |   -`MyServer.java` 服务器端实现  

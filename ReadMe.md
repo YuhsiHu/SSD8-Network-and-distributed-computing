@@ -108,18 +108,17 @@ Exercise 4：待办事项列表
   编写的一个简单的Web服务客户端程序，提供以上各功能的菜单选项，用户通过选择不同的菜单项，实现必要参数的输入和相应功能的调用。  
 
 
-  ¦--client    
-  ¦        `ListImp.java` 				定义客户端可能使用的接口功能    
-  ¦      `ListImpService.java` 			完成客户端可能使用的功能的调用  
-  ¦      `WebClient.java` 				客户端类，用于调用远程方法  
-  ¦        
-  ¦--service  
-  ¦        `ListImp.java` 				实现接口中定义的功能  
-  ¦        `ListInterface.java` 			接口类，定义接口提供的功能  
-  ¦        `TodoList.java` 				待办事项条目  
-  ¦        `WebServer.java` 				服务器类，实现连接  
-    运行此项目时，应先后运行WebServer.java和WebClient.java。WebServer在运行时默认指定8080端口。    
-    此后，在WebClient中按提示输入命令信息，即可完成对待办事项管理系统的操作。    
+  ¦--bean    
+  ¦          -`TodoList.java` 				待办事项类   
+  ¦        -`User.java` 			客户端类   
+  ¦        -`WebServer.java` 				服务器  
+  ¦   
+  ¦  
+  ¦--client   
+  ¦    -`client.java`   客户端         
+  ¦--service    
+  ¦        自动生成的客户端接口 
+    
 
 Exam 1:HTTP Proxy Server
 ---------------------------------------------
